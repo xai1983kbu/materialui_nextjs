@@ -1,0 +1,7 @@
+# next.js build output
+.next
+
+# Dependency directories
+node_modules/
+
+.DS_Store
