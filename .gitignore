@@ -4,4 +4,7 @@
 # Dependency directories
 node_modules/
 
+# Output for command 'next build && next export'
+out/
+
 .DS_Store

@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
   drawerIconContainer: {
     marginLeft: "auto",
     "&:hover": {
-      backgroundColor: "transparent"
+      backgroundColor: "transparent",
     },
   },
   drawer: {
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   drawerItemEstimate: {
-    backgroundColor: theme.palette.common.orange
+    backgroundColor: theme.palette.common.orange,
   },
   drawerItemSelected: {
     "& .MuiListItemText-root": {
@@ -117,23 +117,25 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
     "&.Mui-expanded": {
       margin: 0,
-      borderBottom: 0
+      borderBottom: 0,
     },
     "&::before": {
-      backgroundColor: "rgba(0, 0, 0, 0)"
-    }
+      backgroundColor: "rgba(0, 0, 0, 0)",
+    },
   },
   accordionDetails: {
     padding: 0,
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
   },
   accordionSummary: {
     padding: "0 24px 0 16px",
     "&:hover": {
-      backgroundColor: "rgba(0, 0, 0, 0.08)"
+      backgroundColor: "rgba(0, 0, 0, 0.08)",
     },
-    backgroundColor: (props) => { return props.value === 1 ? "rgba(0, 0, 0, 0.14)" : "inherit"}
-  }
+    backgroundColor: (props) => {
+      return props.value === 1 ? "rgba(0, 0, 0, 0.14)" : "inherit";
+    },
+  },
 }));
 
 const menuOptions = [
@@ -251,14 +253,18 @@ const Header = () => {
           selected={value === 0}
         />
         <Tab
-          label=
-          // {`Page One${
+          label=// {`Page One${
           //   selectedIndex !== false ? `-${selectedIndex}` : ""
           // }`}
-          {<>Page One
-            <span style={{ fontSize: "0.75rem"}}>
-              {selectedIndex !== false && `/${menuOptions[selectedIndex]['name']}`}
-            </span></>}
+          {
+            <>
+              Page One
+              <span style={{ fontSize: "0.75rem" }}>
+                {selectedIndex !== false &&
+                  `/${menuOptions[selectedIndex]["name"]}`}
+              </span>
+            </>
+          }
           className={classes.tab}
           component={Link}
           href="/pageone"
@@ -284,6 +290,9 @@ const Header = () => {
         className={classes.button}
         component={Link}
         href="/feedback"
+        onClick={() => {
+          setValue(false);
+        }}
       >
         FeedBack
       </Button>
@@ -395,7 +404,9 @@ const Header = () => {
             }}
             selected={value === 0}
             classes={{ selected: classes.drawerItemSelected }}
-            style={{ backgroundColor: value == 0 ?"rgba(0, 0, 0, 0.14)" : null }}
+            style={{
+              backgroundColor: value == 0 ? "rgba(0, 0, 0, 0.14)" : null,
+            }}
             component={Link}
             href="/"
           >
@@ -404,12 +415,28 @@ const Header = () => {
             </ListItemText>
           </ListItem>
           <Accordion classes={{ root: classes.accordion }} elevation={0}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon color="secondary" />} classes={{root: classes.accordionSummary }}>
+            <AccordionSummary
+              expandIcon={
+                <IconButton
+                  style={{ backgroundColor: "transparent" }}
+                  disableRipple
+                >
+                  <ExpandMoreIcon color="secondary" />
+                </IconButton>
+              }
+              classes={{ root: classes.accordionSummary }}
+            >
               <ListItemText
                 disableTypography
                 className={classes.drawerItemText}
-                style={{opacity: value === 1 && !selectedIndex ? 1 : null}}
-                onClick={() => { setOpenDrawer(false); setValue(1); setSelectedIndex(false);}}
+                style={{
+                  opacity: value === 1 && selectedIndex === false ? 1 : null,
+                }}
+                onClick={() => {
+                  setOpenDrawer(false);
+                  setValue(1);
+                  setSelectedIndex(false);
+                }}
               >
                 <Link href="/pageone" color="inherit">
                   Page One
@@ -427,13 +454,22 @@ const Header = () => {
                       divider
                       button
                       onClick={() => {
-                        setOpenDrawer(false);
+                        // setOpenDrawer(false);
                         setSelectedIndex(menuRoute.selectedIndex);
                         setValue(1);
                       }}
-                      selected={value === 1 && selectedIndex === menuRoute.selectedIndex && pathname !== "/pageone"}
+                      selected={
+                        value === 1 &&
+                        selectedIndex === menuRoute.selectedIndex &&
+                        pathname !== "/pageone"
+                      }
                       classes={{ selected: classes.drawerItemSelected }}
-                      style={{ backgroundColor: selectedIndex == menuRoute.selectedIndex ? "rgba(0, 0, 0, 0.14)" : null }}
+                      style={{
+                        backgroundColor:
+                          selectedIndex === menuRoute.selectedIndex
+                            ? "rgba(0, 0, 0, 0.14)"
+                            : null,
+                      }}
                       component={Link}
                       href={menuRoute.link}
                     >
@@ -474,7 +510,9 @@ const Header = () => {
             }}
             selected={value === 2}
             classes={{ selected: classes.drawerItemSelected }}
-            style={{ backgroundColor: value == 2 ?"rgba(0, 0, 0, 0.14)" : null }}
+            style={{
+              backgroundColor: value == 2 ? "rgba(0, 0, 0, 0.14)" : null,
+            }}
             component={Link}
             href="/pagetwo"
           >
@@ -495,7 +533,9 @@ const Header = () => {
               root: classes.drawerItemEstimate,
               selected: classes.drawerItemSelected,
             }}
-            style={{ backgroundColor: value == 3 ?"rgba(0, 0, 0, 0.14)" : null }}
+            style={{
+              backgroundColor: value == 3 ? "rgba(0, 0, 0, 0.14)" : null,
+            }}
             component={Link}
             href="/feedback"
           >
@@ -529,6 +569,7 @@ const Header = () => {
               component={Link}
               href="/"
               className={classes.logoContainer}
+              onClick={() => { setValue(0); setSelectedIndex(false); setOpenMenu(false); }}
             >
               <img
                 alt="company logo"
